@@ -37,7 +37,6 @@ class Phrase {
         if (this.checkLetter(letter)) {
             const letterLis = document.querySelectorAll(`.${letter}`);
             letterLis.forEach(li => li.classList.replace('hide', 'show'));
-            console.log(letterLis);
         }
     }
 }
