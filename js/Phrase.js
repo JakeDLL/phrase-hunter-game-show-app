@@ -15,10 +15,10 @@ class Phrase {
      * --------------
      */
     addPhraseToDisplay() {
-        const letterLis = document.querySelector('#phrase ul');
+        const letterList = document.querySelector('#phrase ul');
         for (let i = 0; i < this.phrase.length; i++) {
             const characterLi = document.createElement('li')
-            letterLis.appendChild(characterLi);
+            letterList.appendChild(characterLi);
             if (this.phrase[i] === ' ') {
                 characterLi.className = 'space';
                 characterLi.textContent = this.phrase[i];
@@ -27,9 +27,21 @@ class Phrase {
                 characterLi.textContent = `${this.phrase[i]}`;
             }
         }
-        // console.log(letterLis);
+    }
+
+    checkLetter(letter) {
+        return this.phrase.includes(letter); 
+    }
+
+    showMatchedLetter(letter) {
+        if (this.checkLetter(letter)) {
+            const letterLis = document.querySelectorAll(`.${letter}`);
+            letterLis.forEach(li => li.classList.replace('hide', 'show'));
+            console.log(letterLis);
+        }
     }
 }
 
 // const phrase = new Phrase('phrase hunter');
 // phrase.addPhraseToDisplay();
+// phrase.showMatchedLetter('r');
