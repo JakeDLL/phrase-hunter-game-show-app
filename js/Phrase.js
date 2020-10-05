@@ -34,10 +34,8 @@ class Phrase {
     }
 
     showMatchedLetter(letter) {
-        if (this.checkLetter(letter)) {
-            const letterLis = document.querySelectorAll(`.${letter}`);
-            letterLis.forEach(li => li.classList.replace('hide', 'show'));
-        }
+        const letterLis = document.querySelectorAll(`.${letter}`);
+        letterLis.forEach(li => li.classList.replace('hide', 'show'));
     }
 }
 
