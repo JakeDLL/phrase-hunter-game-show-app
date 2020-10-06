@@ -16,8 +16,10 @@ class Game {
     }
     
     startGame() {
+        this.resetBoard();
         const startScreen = document.querySelector('#overlay');
-        startScreen.hidden = 'true';
+        startScreen.hidden = true;
+        console.log(startScreen.hidden);
         const phrase = new Phrase(this.getRandomPhrase());
         this.activePhrase = phrase;
         this.activePhrase.addPhraseToDisplay();
@@ -33,20 +35,20 @@ class Game {
         }
         if (!this.activePhrase.checkLetter(event.target.textContent)) {
             event.target.classList.add('wrong');
-            removeLife();
+            this.removeLife();
         } else {
             event.target.classList.add('chosen');
             this.activePhrase.showMatchedLetter(event.target.textContent);
-            if (checkForWin()) {
-                gameOver();
+            if (this.checkForWin()) {
+                this.gameOver();
             }
 
         }
-        
     }
 
     removeLife() {
         const lives = document.querySelectorAll('.tries img');
+        console.log(`removed life`)
         for (let life of lives) {
             if (life.src === 'images/liveHeart.png') {
                 life.src = 'images/lostHeart.png';
@@ -55,8 +57,9 @@ class Game {
         }
         this.missed++;
         if (this.missed === 5) {
-            gameOver();
+            this.gameOver();
         }
+        console.log(this.missed);
     }
 
     checkForWin() {
@@ -72,7 +75,7 @@ class Game {
     gameOver() {
         const startScreen = document.querySelector('#overlay');
         const gameOverH1 = startScreen.querySelector('#game-over-message');
-        startScreen.hidden = '';
+        startScreen.hidden = false;
         if (this.checkForWin()) {
             startScreen.className = 'win';
             startScreen.querySelector('#game-over-message').textContent = `You got the phrase!!!`;
@@ -81,4 +84,23 @@ class Game {
             gameOverH1.textContent = `You didn't get the phrase. Try again?`;
         }
     }
+
+    resetBoard() {
+        const letterList = document.querySelector('#phrase ul');
+        while (letterList.hasChildNodes()) {
+            letterList.removeChild(letterList.firstChild);
+        }
+
+        const keyboard = document.querySelectorAll('.key');
+        keyboard.forEach(key => {
+            key.className = 'key';
+            if (key.disabled) {
+                key.disabled = false;
+            }
+        });
+
+        const lives = document.querySelectorAll('.tries img');
+        lives.forEach(life => life.src = "images/liveHeart.png");
+    }
+
 }
