@@ -11,17 +11,24 @@ class Phrase {
 
     addPhraseToDisplay() {
         const phraseList = document.querySelector('#phrase ul');
-        this.phrase.forEach(letter => {
+        for (let i = 0; i < this.phrase.length; i++) {
             const li = document.createElement('li');
-            phraseList.appendChild;
-            if (letter === ' ') {
+            phraseList.appendChild(li);
+            if (this.phrase[i] === ' ') {
                 li.className = 'space';
                 li.textContent = ' ';
             } else {
-                li.className = `hide letter ${letter}`;
-                li.textContent = letter;
+                li.className = `hide letter ${this.phrase[i]}`;
+                li.textContent = this.phrase[i];
             }
-        });
+        };
+    }
+
+    removePhraseFromDisplay() {
+        const phraseLis = document.querySelector('#phrase ul');
+        while (phraseLis.hasChildNodes()) {
+            phraseLis.removeChild(phraseLis.firstChild);
+        }
     }
 
     checkLetter(letter) {
@@ -30,11 +37,17 @@ class Phrase {
 
     showMatchedLetter(letter) {
         if (this.checkLetter(letter)) {
-            phraseLis.forEach(li => {
-                if (li.textContent === letter) {
-                    li.classList.replace('hide', 'show');
+            const phraseLis = document.querySelector('#phrase ul').children;
+            for (let i = 0; i < phraseLis.length; i++) {
+                if (phraseLis[i].textContent === letter) {
+                    phraseLis[i].classList.replace('hide', 'show');
                 }
-            })
+            }
+            // phraseLis.forEach(li => {
+            //     if (li.textContent === letter) {
+            //         li.classList.replace('hide', 'show');
+            //     }
+            // })
         }
     }
 }
