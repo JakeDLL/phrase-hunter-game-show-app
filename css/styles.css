@@ -28,6 +28,7 @@ body {
   flex-direction: column;
   display: flex;
   height: 100vh;
+  background-color: #ffeadb;
 }
 
 li, ol, ul {
@@ -101,6 +102,7 @@ button {
   color: transparent;
   background: var(--color-neutral-light);
   border-radius: 5px;
+  border-style: outset;
 }
 
 .space {
@@ -110,8 +112,8 @@ button {
 
 
 .show {
-  color: #fff;
-  background-color: #4ac0d5;
+  color: #407088;
+  background-color: #ffcbcb;
   font-size: 20px;
   height: 65px;
   width: 65px;
@@ -138,7 +140,7 @@ button {
 }
 
 .wrong {
-  background: #f7a964;
+  background: #920000;
   color: #FFFFFF;
 }
 
@@ -176,7 +178,7 @@ button {
 }
 
 .title {
-  color: #FFF;
+  color: #1a1c20;
 }
 
 .start {

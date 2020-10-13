@@ -21,5 +21,5 @@ keyboard.forEach(key => key.addEventListener('click', event => {
 }));
 
 document.addEventListener('keydown', event => {
-    console.log(event);
-})
+    game.handleInteractions(event);
+});
