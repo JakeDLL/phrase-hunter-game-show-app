@@ -45,31 +45,10 @@ class Game {
      * @param {eventObj} event - The event that needs to be handled
      */
     handleInteractions(event) {
-        // Checks if event is an on-screen keyboard button
-        // if (event.target.tagName === 'BUTTON') {
-        //     const button = event.target;
-        //     // disables the button so it can't be chosen again
-        //     button.disabled = true;
-            
-        //     // Checks if the active phrase contains the letter
-        //     if (!this.activePhrase.checkLetter(button.textContent)) {
-        //         // Adds wrong class and removes life
-        //         button.classList.add('wrong');
-        //         this.removeLife();
-        //     } else {
-        //         // Adds chosen class, displays the letter, and checks for win
-        //         button.classList.add('chosen');
-        //         this.activePhrase.showMatchedLetter(button.textContent);
-
-        //         // If game is won, game over is run
-        //         if (this.checkForWin()) {
-        //             this.gameOver();
-        //         }
-        //     }
-        // }
-
         let letter;
         let button;
+
+        // Checks what type of event it is and assigns the correct value to letter and button variable
         if (event.target.tagName === 'BUTTON') {
             button = event.target;
             letter = button.textContent;
@@ -84,17 +63,23 @@ class Game {
             }
         }
 
+        // If the letter has not been used and it is not undefined, it will push the letter into the used letters array and respond to the interaction
         if (!this.usedLetters.includes(letter) && letter) {
             this.usedLetters.push(letter);
 
             button.disabled = true;
+
+            // Checks if the active phrase contains the letter
             if (!this.activePhrase.checkLetter(letter)) {
+                // Adds wrong class and removes life
                 button.classList.add('wrong');
                 this.removeLife();
             } else {
+                // Adds chosen class, displays the letter, and checks for win
                 button.classList.add('chosen');
                 this.activePhrase.showMatchedLetter(letter);
 
+                // If game is won, game over is run
                 if (this.checkForWin()) {
                     this.gameOver();
                 }
