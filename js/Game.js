@@ -47,6 +47,7 @@ class Game {
      * @param {eventObj} event - The event that needs to be handled
      */
     handleInteractions(event) {
+        // If the game is ready, handle the interaction. else, ignore it.
         if (this.isReady) {
             let letter;
             let button;
