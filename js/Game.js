@@ -52,12 +52,12 @@ class Game {
         if (event.target.tagName === 'BUTTON') {
             button = event.target;
             letter = button.textContent;
-        } else if (/[a-z]/.test(event.key)) {
+        } else if (/[a-z]/.test(event.key.toLowerCase())) {
             const keyboard = document.querySelectorAll('.key');
             for (let i = 0; i < keyboard.length; i++) {
-                if (keyboard[i].textContent === event.key) {
+                if (keyboard[i].textContent === event.key.toLowerCase()) {
                     button = keyboard[i];
-                    letter = event.key;
+                    letter = event.key.toLowerCase();
                     break;
                 }
             }
