@@ -4,7 +4,11 @@
  * Game.js 
  * */
 
+/**
+ * Class representing a game.
+ */
 class Game {
+
     constructor() {
         this.missed = 0;
         this.phrases = [
@@ -17,6 +21,10 @@ class Game {
         this.activePhrase = null;
     }
 
+    /**
+     * Start the game
+     * remove start screen and select random phrase as active phrase
+     */
     startGame() {
         const startScreen = document.querySelector('#overlay');
         startScreen.style.display = 'none';
@@ -24,21 +32,35 @@ class Game {
         this.activePhrase.addPhraseToDisplay();
     }
 
+    /**
+     * Selects random phrase form this.phrases array
+     */
     getRandomPhrase() {
         return new Phrase(this.phrases[Math.floor(Math.random() * this.phrases.length)]);
     }
 
+    /**
+     * Handle user interactions
+     * @param {eventObj} event - The event that needs to be handled
+     */
     handleInteractions(event) {
+        // Checks if event is an on-screen keyboard button
         if (event.target.tagName === 'BUTTON') {
-            const button = event.target;;
+            const button = event.target;
+            // disables the button so it can't be chosen again
             button.disabled = true;
             
+            // Checks if the active phrase contains the letter
             if (!this.activePhrase.checkLetter(button.textContent)) {
+                // Adds wrong class and removes life
                 button.classList.add('wrong');
                 this.removeLife();
             } else {
+                // Adds chosen class, displays the letter, and checks for win
                 button.classList.add('chosen');
                 this.activePhrase.showMatchedLetter(button.textContent);
+
+                // If game is won, game over is run
                 if (this.checkForWin()) {
                     this.gameOver();
                 }
@@ -46,6 +68,9 @@ class Game {
         }
     }
 
+    /**
+     * after game is over, resets on-screen keyboard keyes
+     */
     resetKeyboard() {
         const keyboard = document.querySelectorAll('.key');
         keyboard.forEach(key => {
@@ -54,23 +79,33 @@ class Game {
         })
     }
 
+    /**
+     * Removes life from hearts
+     */
     removeLife() {
         const tries = document.querySelectorAll('.tries img');
+
+        // Iterates through the hearts
         for (let i = 0; i < tries.length; i++) {
+            // Choses first live heart and changes it to lost heart and breaks the loop
             if (tries[i].src.match("images/liveHeart.png")) {
                 tries[i].src = "images/lostHeart.png";
                 break;
             }
         }
+
+        // Adds 1 to missed tries and checks if all lives are lost
         this.missed++;
         if (this.missed === 5) {
             this.gameOver();
         }
     }
 
+    // After game is over, resets all hearts to live hearts and sets missed tries back to 0
     resetLives() {
         const hearts = document.querySelectorAll('.tries img');
         for (let i = 0; i < hearts.length; i++) {
+            // If the iterated heart is lost, reset to live heart
             if (hearts[i].src.match("images/lostHeart.png")) {
                 hearts[i].src = "images/liveHeart.png";
             }
@@ -78,6 +113,10 @@ class Game {
         this.missed = 0;
     }
 
+    /**
+     * Checks if all phrase letters have been shown
+     * @return {boolean} boolean - true if won, else false
+     */
     checkForWin() {
         const hiddenLetters = document.querySelectorAll('li.hide');
         if (hiddenLetters.length > 0) {
@@ -86,22 +125,28 @@ class Game {
         return true;
     }
 
+    /**
+     * resets game and returns to start screen with win or lose message
+     */
     gameOver() {
+        // displays start screen
         const startScreen = document.querySelector('#overlay');
         startScreen.style.display = 'block';
         
+        // adds game over message depending on the user winning or losing
         const gameOverMessage = document.querySelector('#game-over-message');
         if (this.checkForWin()) {
             startScreen.className = 'win';
             gameOverMessage.textContent = `Congratulations! You guessed the phrase. Try again?`;
         } else {
             startScreen.className = 'lose';
-            gameOverMessage.textContent = `Oh no! You ran out of lives. Try again?`;
+            gameOverMessage.textContent = `Oh no! You ran out of lives. The phrase was: ${this.activePhrase.phrase.toUpperCase()}. Try again?`;
         }
 
-        this.activePhrase.removePhraseFromDisplay();
+        // removes all phrase li items and resets game properties
         this.resetKeyboard();
+        this.activePhrase.removePhraseFromDisplay();
         this.resetLives();
+        this.activePhrase = null;
     }
 }
-

@@ -4,13 +4,22 @@
  * app.js 
  * */
 
+// instanciates new game object
+const game = new Game();
+
+// Event listener starts the game 
 const startButton = document.querySelector('#btn__reset');
 startButton.addEventListener('click', () => {
-    const game = new Game();
     game.startGame();
-
-    const keyboard = document.querySelectorAll('.key');
-    keyboard.forEach(key => key.addEventListener('click', event => {
-        game.handleInteractions(event);
-    }))
 });
+
+const keyboard = document.querySelectorAll('.key');
+
+// adds event listeners for on-screen keyboard
+keyboard.forEach(key => key.addEventListener('click', event => {
+    game.handleInteractions(event);
+}));
+
+document.addEventListener('keydown', event => {
+    console.log(event);
+})

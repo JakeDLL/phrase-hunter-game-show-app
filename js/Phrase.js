@@ -4,13 +4,25 @@
  * Phrase.js 
  * */
 
+/**
+ * Class representing a phrase object
+ */
 class Phrase {
+
+    /**
+     * Create phrase object
+     * @param {string} phrase - The string to be used as phrase object
+     */
     constructor(phrase) {
         this.phrase = phrase.toLowerCase();
     }
 
+    /**
+     * Creates lis for each charated in the phrase property
+     */
     addPhraseToDisplay() {
         const phraseList = document.querySelector('#phrase ul');
+        // Iterates through each character and sets the appropiate class names and text content
         for (let i = 0; i < this.phrase.length; i++) {
             const li = document.createElement('li');
             phraseList.appendChild(li);
@@ -24,30 +36,38 @@ class Phrase {
         };
     }
 
+    /**
+     * Removes all phrase li elements from document so that when game is over so there are no errors
+     */
     removePhraseFromDisplay() {
         const phraseLis = document.querySelector('#phrase ul');
+        // while the phrase ul element has li elements, remove the first child
         while (phraseLis.hasChildNodes()) {
             phraseLis.removeChild(phraseLis.firstChild);
         }
     }
 
+    /**
+     * Checks if the phrase contains the letter
+     * @param {string} letter - letter to be checked
+     */
     checkLetter(letter) {
         return this.phrase.includes(letter);
     }
 
+    /**
+     * displays chosen letter from phrase
+     * @param {string} letter - letter chosen to be displayed on screen
+     */
     showMatchedLetter(letter) {
-        if (this.checkLetter(letter)) {
-            const phraseLis = document.querySelector('#phrase ul').children;
-            for (let i = 0; i < phraseLis.length; i++) {
-                if (phraseLis[i].textContent === letter) {
-                    phraseLis[i].classList.replace('hide', 'show');
-                }
+        const phraseLis = document.querySelector('#phrase ul').children;
+
+        // Iterates through all li elemets to check if current li element is the right letter to display
+        for (let i = 0; i < phraseLis.length; i++) {
+            if (phraseLis[i].textContent === letter) {
+                // replaces li class 'hide' with 'show'
+                phraseLis[i].classList.replace('hide', 'show');
             }
-            // phraseLis.forEach(li => {
-            //     if (li.textContent === letter) {
-            //         li.classList.replace('hide', 'show');
-            //     }
-            // })
         }
     }
 }
