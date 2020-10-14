@@ -37,17 +37,6 @@ class Phrase {
     }
 
     /**
-     * Removes all phrase li elements from document so that when game is over so there are no errors
-     */
-    removePhraseFromDisplay() {
-        const phraseLis = document.querySelector('#phrase ul');
-        // while the phrase ul element has li elements, remove the first child
-        while (phraseLis.hasChildNodes()) {
-            phraseLis.removeChild(phraseLis.firstChild);
-        }
-    }
-
-    /**
      * Checks if the phrase contains the letter
      * @param {string} letter - letter to be checked
      */

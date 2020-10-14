@@ -143,11 +143,7 @@ class Game {
      * @return {boolean} boolean - true if won, else false
      */
     checkForWin() {
-        const hiddenLetters = document.querySelectorAll('li.hide');
-        if (hiddenLetters.length > 0) {
-            return false;
-        }
-        return true;
+        return document.querySelectorAll('li.hide').length === 0;
     }
 
     /**
@@ -170,8 +166,8 @@ class Game {
 
         // removes all phrase li items and resets game properties
         this.resetKeyboard();
-        this.activePhrase.removePhraseFromDisplay();
         this.resetLives();
+        document.querySelector('#phrase ul').innerHTML = "";
         this.usedLetters = [];
         this.activePhrase = null;
         this.isReady = false;
