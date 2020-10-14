@@ -22,7 +22,8 @@ keyboard.forEach(key => key.addEventListener('click', event => {
 }));
 
 document.addEventListener('keydown', event => {
-    if (game) {
+    const startScreen = document.querySelector('#overlay');
+    if (startScreen.style.display == 'none') {
         game.handleInteractions(event);
     }
 });
