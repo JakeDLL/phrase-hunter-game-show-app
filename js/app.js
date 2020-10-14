@@ -5,11 +5,12 @@
  * */
 
 // instanciates new game object
-const game = new Game();
+let game;
 
 // Event listener starts the game 
 const startButton = document.querySelector('#btn__reset');
 startButton.addEventListener('click', () => {
+    game = new Game();
     game.startGame();
 });
 
@@ -21,5 +22,7 @@ keyboard.forEach(key => key.addEventListener('click', event => {
 }));
 
 document.addEventListener('keydown', event => {
-    game.handleInteractions(event);
+    if (game) {
+        game.handleInteractions(event);
+    }
 });
