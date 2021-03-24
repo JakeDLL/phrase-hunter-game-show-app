@@ -1,12 +1,3 @@
-/*
- * Treehouse FSJS Techdegree
- * Project 4 - OOP Game App
- * Phrase.js 
- * */
-
-/**
- * Class representing a phrase object
- */
 class Phrase {
 
     /**
